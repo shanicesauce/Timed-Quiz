@@ -60,9 +60,9 @@ quizQuestion();
 
 
 var firstQuestionAsked = {
-    asked: "question will be here",
-    choices: ["choice 1","2","3","4"],
-    answer: "2"
+    asked: "There are two clocks of different colors: The green clock is broken and doesn't run at all, but the yellow clock loses one second every 24 hours. Which clock is more accurate? ",
+    choices: ["The green clock", "The yellow clock", "Neither", "Both"],
+    answer: "The green clock"
 };
 // ask each question and present the answers
 function quizQuestion (){
@@ -79,7 +79,7 @@ function quizQuestion (){
 function selectedAnswer(answer){
     var choiceAns = answer.textContent;
     var correctAnswer = firstQuestionAsked.answer;
-    if (choiceAns == correctAnswer){
+    if (choiceAns === correctAnswer){
       alert ("correct!")
       gameScore= + 10;
       console.log(gameScore);
@@ -95,9 +95,9 @@ secondQuestion()
 }
 
     var secondQuestionAsked = {
-    asked: "second question will be here",
-    choices: ["choice 1","2","choice 3","4"],
-    answer: "choice 1"
+    asked: "You're 4th place right now in a race. What place will you be in when you pass the person in 3rd place?",
+    choices: ["1st", "2nd","3rd", "None of the above"],
+    answer: "3rd"
 };
 
 function secondQuestion() {
@@ -115,7 +115,7 @@ function secondQuestion() {
         var choiceAns = answer.textContent;
         var correctAnswer = secondQuestionAsked.answer;
         console.log (correctAnswer);
-        if (choiceAns == correctAnswer){
+        if (choiceAns === correctAnswer){
           alert ("correct!");
           gameScore = gameScore + 10;
           console.log(gameScore);
@@ -129,9 +129,9 @@ function secondQuestion() {
     };
 
 var thirdQuestionAsked = {
-     asked: "third question will be here",
-    choices: ["choice 1","2"," 3","choice 4"],
-    answer: "2"
+     asked: "How many months have 28 days?",
+    choices: ["2","1","All of them","Depends if there's a leap year or not"],
+    answer: "All of them"
 };
 
 
@@ -149,7 +149,7 @@ function thirdQuestion() {
     function selectAnsr(answer){
         var choiceAns = answer.textContent;
         var correctAnswer = thirdQuestionAsked.answer;
-        if (choiceAns == correctAnswer){
+        if (choiceAns === correctAnswer){
           alert ("correct!");
           gameScore = gameScore + 10;
           console.log(gameScore);
@@ -157,31 +157,78 @@ function thirdQuestion() {
         else {
             alert ("wrong!");
             countStart = countStart -10;
+            
         }
     gameOver();
  };
 
 function quizPoints () {
-    localStorage.setItem ("gameScore",JSON.parse(gameScore));
 
-    var finalScore = localStorage.getItem("gameScore");
-    console.log (finalScore);
-    if (!finalScore) {
-        return false; }
 
   var scores = document.createElement("input");
+  var scoreEnter = document.createElement("button");
+
         scores.className="score"
+
         endScore.appendChild (scores);
+        endScore.appendChild(scoreEnter);
 
+    scoreEnter.textContent = "submit";
+    scoreEnter.addEventListener ("click",function(){
+        var personsName = scores.value;
+        console.log (personsName);
     
+     var highScores = [] 
+     highScores.push ([personsName , gameScore]);
+     console.log (highScores);
+    
+     localStorage.setItem ("highScores",JSON.stringify(highScores));
+
+     var finalScore = localStorage.getItem("highScores");
+     console.log (finalScore);
+    //  if (!finalScore) {
+    //      return false; } 
+    displayScores(finalScore);
+})
+}
+
+function displayScores (finalScore) {
+
+    for (var i = 0; i < finalScore.length; i++) {
+
+        totalsListed = finalScore[i];
+
+        var scoresList = document.createElement ("ul");
+        var totals = document.createElement ("li");
+
+        endScore.appendChild(scoresList);
+
+        scoresList.appendChild(totals)
 
 
+    }
+    totals = totalsListed
+    //create ul , create li
+    //set list items name and score 
+    //take one name and score out [i] 
+    //will need a for loop smh
+    //length of final score create
+    //do loop first smh
+    //do all above inside for loop 
+    //append items
+    // have finalscore textcontent
+}
+
+function showHighscore (){
+    highScore.addEventListener ("click",displayScores)
 }
 
 function gameOver (){
     
     gameDone.textContent = "Game Over!";
     quesionPrompt.classList.add("hide");
+
+    countStart=clearInterval(countStart);
 
     quizPoints ()
    //when clock hit 0 or answered all questions
