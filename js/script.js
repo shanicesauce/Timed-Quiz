@@ -29,7 +29,7 @@ startButton.addEventListener("click",quizCountdown);
 
 
 var gameScore = 0;
-var countStart = 80;
+var countStart = 40;
 function quizCountdown () {
    
 
@@ -196,27 +196,18 @@ function displayScores (finalScore) {
 
     for (var i = 0; i < finalScore.length; i++) {
 
-        totalsListed = finalScore[i];
+        totalsListed = finalScore[i].textContent;
 
         var scoresList = document.createElement ("ul");
         var totals = document.createElement ("li");
 
         endScore.appendChild(scoresList);
 
-        scoresList.appendChild(totals)
-
+        scoresList.appendChild(totals);
+        totals = totalsListed;
 
     }
-    totals = totalsListed
-    //create ul , create li
-    //set list items name and score 
-    //take one name and score out [i] 
-    //will need a for loop smh
-    //length of final score create
-    //do loop first smh
-    //do all above inside for loop 
-    //append items
-    // have finalscore textcontent
+
 }
 
 function showHighscore (){
